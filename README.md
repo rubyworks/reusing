@@ -41,11 +41,11 @@ a second copy of every method in refinement format. While doable, it is obviousl
 not DRY, and quite simply a pain in the ass.
 
 So the idea of overriding the `using` method to accept a library file name was
-hatched. With this most extension scripts can be redily used as-is, without all
-the boiler-plate. Usage is pretty simple. Let's say the first example we gave
+hatched. With it, most extension scripts can be redily used as-is, without all
+the boiler-plate. Usage is pretty simple. Let's say the example given
 above is in a library file called `some_method.rb`, then we can do:
 
-```
+```ruby
 require 'reusing'
 
 using 'some_method'
@@ -53,8 +53,8 @@ using 'some_method'
 
 The refinement method will find the file, read it in, perform a transformation
 converting `class String` into `refine String do` and wrap it all in a module
-which it then passes to the origina `using` method, which has been aliased
-as `reusing`.
+which it then passes to the original `using` method, which has been aliased, btw,
+as `reusing` (hence the name of this library).
 
 Granted, the code is a bit of a dirty hack --as is necessary to make it work.
 Nonetheless, it should work just fine where needed.

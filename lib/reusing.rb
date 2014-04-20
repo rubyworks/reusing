@@ -11,8 +11,6 @@ class << self
 
       text = File.read(file)
 
-      # text = text.gsub(/^\s*class\s*([A-Z]\w*)\s*$/, 'module Refinements; refine \1 do')
-
       text = text.gsub(/^\s*class\s*([A-Z]\w*)\s*$/, 'refine \1 do')
       text = "m = Module.new do\n" + text + "\nend\nreusing m\n"
 
