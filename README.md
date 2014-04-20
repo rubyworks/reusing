@@ -1,12 +1,11 @@
-# Refinment
+# Reusing
 
 Ruby introduced refinements in version 2.0. Refinements are essenitally
-a safe alternative monkey-patching.
-
-Unfrotunately, a serious problem with the syntax of refinements is the
-degree to which they differ from writing tradition class extensions.
-Traditionally, if you want to add a method to the String class, for 
-instance, you simply open the class and define them method.
+a safe alternative to monkey-patching. Unfrotunately, a serious problem
+with the syntax of refinements is the degree to which they differ from
+writing tradition class extensions. Traditionally, if you want to add
+a method to the String class, for instance, you simply open the class
+and define them method.
 
 ```ruby
 class String
@@ -39,21 +38,24 @@ For a one off use, this isn't a big deal. But for a method library such as
 Ruby Facets, this has huge implications. In fact, Facets does not yet support
 refinements precisely b/c of this issue. To do so would require maintaining
 a second copy of every method in refinement format. While doable, it is obviously
-not DRY, and quite simply a pain in butt.
+not DRY, and quite simply a pain in the ass.
 
-So we cam up with the idea of the `refinement` method. With this method most
-extensions script can be redily used as-is, without all the boiler-plate.
-Usage is pretty simple. Let's say the first example we gave above is in a
-library file called `some_method.rb`, then we can do:
+So the idea of overriding the `using` method to accept a library file name was
+hatched. With this most extension scripts can be redily used as-is, without all
+the boiler-plate. Usage is pretty simple. Let's say the first example we gave
+above is in a library file called `some_method.rb`, then we can do:
 
 ```
-require 'refinement'
+require 'reusing'
 
-using refinement('some_method')
+using 'some_method'
 ```
 
 The refinement method will find the file, read it in, perform a transformation
 converting `class String` into `refine String do` and wrap it all in a module
-which it returns.
+which it then passes to the origina `using` method, which has been aliased
+as `reusing`.
 
+Granted, the code is a bit of a dirty hack --as is necessary to make it work.
+Nonetheless, it should work just fine where needed.
 
