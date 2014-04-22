@@ -1,7 +1,19 @@
 # Reusing
 
-Ruby introduced refinements in version 2.0. Refinements are essenitally
-a safe alternative to monkey-patching. Unfrotunately, a serious problem
+## Short Story
+
+Reusing allows one to use refinements directly from an extension file.
+
+```ruby
+require 'reusing'
+
+using 'some_extension_script'
+```
+
+## Long Story
+
+Ruby introduced refinements in version 2.0. Refinements are essentially
+a safe alternative to monkey-patching. Unfortunately, a serious problem
 with the syntax of refinements is the degree to which they differ from
 writing tradition class extensions. Traditionally, if you want to add
 a method to the String class, for instance, you simply open the class
@@ -32,7 +44,7 @@ using SomeModule
 ```
 
 This can be put in a file too, but the `using SomeModule` will have to 
-be reissued in every file the refinment is needed.
+be reissued in every file the refinement is needed.
 
 For a one off use, this isn't a big deal. But for a method library such as
 Ruby Facets, this has huge implications. In fact, Facets does not yet support
@@ -41,7 +53,7 @@ a second copy of every method in refinement format. While doable, it is obviousl
 not DRY, and quite simply a pain in the ass.
 
 So the idea of overriding the `using` method to accept a library file name was
-hatched. With it, most extension scripts can be redily used as-is, without all
+hatched. With it, most extension scripts can be readily used as-is, without all
 the boiler-plate. Usage is pretty simple. Let's say the example given
 above is in a library file called `some_method.rb`, then we can do:
 
@@ -59,3 +71,45 @@ as `reusing` (hence the name of this library).
 Granted, the code is a bit of a dirty hack --as is necessary to make it work.
 Nonetheless, it should work just fine where needed.
 
+
+## Caveats
+
+Unfortunately the implementation of Reusing is necessarily a bit hackish. Although
+it works fine for basic extensions scripts there are complications if, for instance,
+the script requires another extension script. While the scripts extensions will become
+refinements, the further requirements will not.
+
+
+## Thoughts
+
+Probably the ideal solution would be if refinement syntax could use normal `class` and
+`module` keywords, instead of the special `refine` clause.
+
+```ruby
+module M
+  class String
+    def important!
+      self + "!"
+    end
+  end
+end
+
+# refinement
+using M::*
+```
+
+In conjunction with this is should be possible to monkey patch with the same code as well.
+
+```ruby
+# core extension
+patch M::*
+```
+
+In this way the both techniques could be used via the same code, while still being modular.
+
+
+## Copyrights
+
+Copyright (c) 2014 Rubyworks (BSD-2 License)
+
+See LICENSE.txt for details.
