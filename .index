@@ -1,0 +1,62 @@
+---
+revision: 2013
+type: ruby
+sources:
+- Indexfile
+- Gemfile
+authors:
+- name: Thomas Sawyer
+  email: transfire@gmail.com
+organizations:
+- name: Rubyworks
+requirements:
+- version: '>= 0'
+  name: finder
+- groups:
+  - test
+  version: '>= 0'
+  name: rubytest
+- groups:
+  - test
+  version: '>= 0'
+  name: rubytest-cli
+- groups:
+  - test
+  version: '>= 0'
+  name: microtest
+- groups:
+  - build
+  version: '>= 0'
+  name: indexer
+conflicts: []
+alternatives: []
+resources:
+- type: home
+  uri: http://rubyworks.github.com/reusing
+  label: Homepage
+- type: code
+  uri: http://github.com/rubyworks/reusing
+  label: Source Code
+repositories:
+- name: upstream
+  scm: git
+  uri: git@github.com:rubyworks/reusing.git
+categories: []
+copyrights:
+- holder: Rubyworks
+  year: '2014'
+  license: BSD-2-Clause
+customs: []
+paths:
+  load:
+  - lib
+name: reusing
+title: Reusing
+version: 1.0.0
+summary: Use `using` with extension files.
+description: Reusing makes it possible to use refinements without all the boiler plate
+  normally necessary in their creation. Instead extension scripts can be loaded directly
+  as refinements.
+scm_uri: https://github.com/rubyworks/reusing/tree/master
+created: '2014-04-16'
+date: '2014-04-22'

@@ -8,4 +8,6 @@ group :test do
   gem "microtest"
 end
 
-
+group :build do
+  gem "indexer"
+end

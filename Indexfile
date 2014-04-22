@@ -1,0 +1,44 @@
+---
+name:
+  reusing
+
+version:
+  1.0.0
+
+title:
+  Reusing
+
+summary:
+  Use `using` with extension files.
+
+description:
+  Reusing makes it possible to use refinements without all the boiler plate
+  normally necessary in their creation. Instead extension scripts can be
+  loaded directly as refinements.
+
+organization:
+  Rubyworks
+
+resources:
+  home: http://rubyworks.github.com/reusing
+  code: http://github.com/rubyworks/reusing
+
+repositories:
+  upstream: git@github.com:rubyworks/reusing.git
+
+scm_uri:
+   https://github.com/rubyworks/reusing/tree/master
+
+authors:
+  - Thomas Sawyer <transfire@gmail.com>
+
+copyrights:
+  - (c) 2014 Rubyworks (BSD-2-Clause)
+
+created: 
+  2014-04-16
+
+paths:
+  load:
+    - lib
+
