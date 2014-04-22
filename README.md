@@ -68,9 +68,6 @@ converting `class String` into `refine String do` and wrap it all in a module
 which it then passes to the original `using` method, which has been aliased, btw,
 as `reusing` (hence the name of this library).
 
-Granted, the code is a bit of a dirty hack --as is necessary to make it work.
-Nonetheless, it should work just fine where needed.
-
 
 ## Caveats
 
