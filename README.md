@@ -2,7 +2,7 @@
 
 ## Short Story
 
-Reusing allows for the use of refinements directly from an core extension file.
+Reusing allows for the use of refinements directly from an extension file.
 
 ```ruby
 require 'reusing'
