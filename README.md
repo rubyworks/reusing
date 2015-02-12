@@ -2,7 +2,7 @@
 
 ## Short Story
 
-Reusing allows one to use refinements directly from an extension file.
+Reusing allows for the use of refinements directly from an core extension file.
 
 ```ruby
 require 'reusing'
@@ -13,11 +13,11 @@ using 'some_extension_script'
 ## Long Story
 
 Ruby introduced refinements in version 2.0. Refinements are essentially
-a safe alternative to monkey-patching. Unfortunately, a serious problem
-with the syntax of refinements is the degree to which they differ from
-writing tradition class extensions. Traditionally, if you want to add
+a safe alternative to monkey-patching. Unfortunately, the degree to which
+the syntax of refinements differs from writing traditional class extensions
+is a sever hinderence to their adoption. Traditionally, if you wanted to add
 a method to the String class, for instance, you simply open the class
-and define them method.
+and define the method.
 
 ```ruby
 class String
@@ -27,8 +27,8 @@ class String
 end
 ```
 
-And that's it. You could put that code in a file and require as needed.
-Refinements, on the other hand, hand much more *boiler-plate*. The
+And that's it. You can put this code in a file and require it as needed.
+Refinements, on the other hand, have much more *boiler-plate*. The
 above would have to be written:
 
 ```ruby
@@ -43,17 +43,18 @@ end
 using SomeModule
 ```
 
-This can be put in a file too, but the `using SomeModule` will have to 
-be reissued in every file the refinement is needed.
+The top portion can be put in an extension file too, but the `using SomeModule` part
+will have to be reissued in every file the refinement is needed.
 
-For a one off use, this isn't a big deal. But for a method library such as
+For a one-off, this isn't a big deal. But for a method library such as
 Ruby Facets, this has huge implications. In fact, Facets does not yet support
-refinements precisely b/c of this issue. To do so would require maintaining
+refinements precisely becuase of this issue. To do so would require maintaining
 a second copy of every method in refinement format. While doable, it is obviously
-not DRY, and quite simply a pain in the ass.
+not DRY, and quite simply too much a pain in the ass to bother.
 
-So the idea of overriding the `using` method to accept a library file name was
-hatched. With it, most extension scripts can be readily used as-is, without all
+So I consder what, if anything, could be done about this problem. And the idea of
+overriding the `using` method to accept a library file name was hatched.
+With it, most extension scripts can be readily used as-is, without all
 the boiler-plate. Usage is pretty simple. Let's say the example given
 above is in a library file called `some_method.rb`, then we can do:
 
@@ -63,24 +64,26 @@ require 'reusing'
 using 'some_method'
 ```
 
-The refinement method will find the file, read it in, perform a transformation
+The new using method will find the file, read it in, perform a transformation
 converting `class String` into `refine String do` and wrap it all in a module
-which it then passes to the original `using` method, which has been aliased, btw,
-as `reusing` (hence the name of this library).
+which it then passed to the original `using` method (which has been aliased
+as `reusing`, btw, hence the name of this library).
 
 
 ## Caveats
 
-Unfortunately the implementation of Reusing is necessarily a bit hackish. Although
-it works fine for basic extensions scripts there are complications if, for instance,
+Unfortunately the implementation of Reusing is necessarily a bit of a hack. Although
+it works fine for basic extensions there are complications if, for instance,
 the script requires another extension script. While the scripts extensions will become
-refinements, the further requirements will not.
+refinements, the further requirements will not. There may also be issues if the
+extenesion defines meta-methods (i.e. class level extensions).
 
 
 ## Thoughts
 
-Probably the ideal solution would be if refinement syntax could use normal `class` and
-`module` keywords, instead of the special `refine` clause.
+If Ruby Team were to take this issue to heat, than probably the ideal solution would
+have refinement syntax use normal `class` and `module` keywords, instead of the
+special `refine` clause.
 
 ```ruby
 module M
@@ -103,6 +106,7 @@ patch M::*
 ```
 
 In this way the both techniques could be used via the same code, while still being modular.
+But that is a significant change to Ruby itself, and ultimately falls to Matz to decide.
 
 
 ## Copyrights
